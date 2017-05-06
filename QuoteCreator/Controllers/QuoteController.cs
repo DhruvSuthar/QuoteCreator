@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 
 namespace QuoteCreator.Controllers
@@ -86,7 +87,17 @@ namespace QuoteCreator.Controllers
             Quote q = JsonConvert.DeserializeObject<List<Quote>>(data)[0];
             q.Content = q.Content.Replace("<p>", "");
             q.Content = q.Content.Replace("</p>", "");
-            q.Content = q.Content.Replace("&#8217;", "'");
+            while (q.Content.Contains("#"))
+            {
+                int i = q.Content.IndexOf('#');
+                string x = "";
+                for (int a = 0; a < 4; a++)
+                {
+                    x += q.Content[i + a + 1];
+                }
+                q.Content = q.Content.Remove(i - 1, 7);
+                q.Content = q.Content.Insert(i - 1, Convert.ToChar(int.Parse(x)).ToString());
+            }
             return q;
         }
     }
