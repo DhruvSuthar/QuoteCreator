@@ -72,7 +72,11 @@ namespace QuoteCreator.Controllers
 
         public static Quote GetQuote(string data)
         {
-            return JsonConvert.DeserializeObject<List<Quote>>(data)[0];
+            Quote q = JsonConvert.DeserializeObject<List<Quote>>(data)[0];
+            q.Content = q.Content.Replace("<p>", "");
+            q.Content = q.Content.Replace("</p>", "");
+            q.Content = q.Content.Replace("&#8217;", "'");
+            return q;
         }
     }
     class Strings
