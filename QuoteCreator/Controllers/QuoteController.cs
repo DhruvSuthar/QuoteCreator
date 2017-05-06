@@ -47,11 +47,22 @@ namespace QuoteCreator.Controllers
             StringFormat stringformat = new StringFormat();
             stringformat.Alignment = StringAlignment.Center;
             stringformat.LineAlignment = StringAlignment.Center;
-            Color StringColor = ColorTranslator.FromHtml(Strings.QuoteColor);
-            Point p1 = new Point(img.Width / 2, img.Height / 2 - 20);
-            Point p2 = new Point(img.Width / 2, img.Height / 2 + 20);
 
-            RectangleF rf = new RectangleF(33, p2.Y, 1300, 300);
+            var f1 = new Font("Segoe UI", 30, FontStyle.Bold);
+            var f2 = new Font("Segoe UI", 40, FontStyle.Bold);
+            Graphics g = Graphics.FromImage(img);
+            SizeF sizeOfString1 = new SizeF();
+            sizeOfString1 = g.MeasureString(quote.Author, f1);
+            SizeF sizeOfString2 = new SizeF();
+            sizeOfString2 = g.MeasureString(quote.Content, f1, 700);
+
+            Color StringColor = ColorTranslator.FromHtml(Strings.QuoteColor);
+            var placement_Y1 = Convert.ToInt32(Math.Floor((img.Height / 2) - ((sizeOfString1.Height + sizeOfString2.Height + 10) / 2)));
+      
+            Point p1 = new Point(img.Width / 2, placement_Y1);
+            Point p2 = new Point(img.Width / 2, 34);
+
+            RectangleF rf = new RectangleF(33, p2.Y, 1300, 700);
             graphicsImage.DrawString(quote.Author, new Font("Segoe UI", 30, FontStyle.Bold), Brushes.Yellow, p1, stringformat);
             graphicsImage.DrawString(quote.Content, new Font("Segoe UI", 40, FontStyle.Bold), new SolidBrush(StringColor), rf, stringformat);
 
