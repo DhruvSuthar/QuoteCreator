@@ -71,7 +71,7 @@ namespace QuoteCreator.Controllers
 
         public static Quote GetQuote(string data)
         {
-            return JsonConvert.DeserializeObject<Quote>(data);
+            return JsonConvert.DeserializeObject<List<Quote>>(data)[0];
         }
     }
     class Strings
