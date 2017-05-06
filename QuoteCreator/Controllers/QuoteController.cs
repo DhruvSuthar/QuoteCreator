@@ -51,8 +51,9 @@ namespace QuoteCreator.Controllers
             Point p1 = new Point(img.Width / 2, img.Height / 2 - 20);
             Point p2 = new Point(img.Width / 2, img.Height / 2 + 20);
 
+            RectangleF rf = new RectangleF(33, p2.Y, 1300, 300);
             graphicsImage.DrawString(quote.Author, new Font("Segoe UI", 30, FontStyle.Bold), Brushes.Yellow, p1, stringformat);
-            graphicsImage.DrawString(quote.Content, new Font("Segoe UI", 40, FontStyle.Bold), new SolidBrush(StringColor), p2, stringformat);
+            graphicsImage.DrawString(quote.Content, new Font("Segoe UI", 40, FontStyle.Bold), new SolidBrush(StringColor), rf, stringformat);
 
             graphicsImage.Save();
             img.Save(Strings.ImagePath + quote.ID + ".jpg", ImageFormat.Jpeg);
